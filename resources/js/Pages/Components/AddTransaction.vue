@@ -4,7 +4,7 @@
         <div class="form-control">
             <label for="text">Text</label>
             <input type="text" id="text" v-model="form.name" placeholder="Enter text..." />
-            <div v-if="form.errors.name">{{ form.errors.name }}</div>
+            <div class="error-class" v-if="form.errors.name">{{ form.errors.name }}</div>
         </div>
         <div class="checkbox-wrapper-3">
             <input type="checkbox"  v-model=form.is_expense  true-value=1 false-value=0 id="cbx-3" />
@@ -14,7 +14,7 @@
             <label for="amount">Amount <br />
                 (On - expense, Off - income)</label>
             <input type="number" id="amount" v-model="form.balance" placeholder="Enter amount..." />
-            <div v-if="form.errors.balance">{{ form.errors.balance }}</div>
+            <div class="error-class" v-if="form.errors.balance">{{ form.errors.balance }}</div>
 
         </div>
         <button class="btn" type="submit" :disabled="form.processing">Add transaction</button>
@@ -96,6 +96,9 @@ const form = useForm({
     transform: scale(1);
     opacity: 0;
     transition: all 0.4s ease;
+  }
+  .error-class{
+    color: red;
   }
 
 </style>

@@ -15,13 +15,13 @@ class ExpenseController extends Controller
     {
         //
 
-        $income = Expense::where('is_expense',0)->sum('balance');
-        $expense = Expense::where('is_expense',1)->sum('balance');
+        $income = Expense::where('is_expense', 0)->sum('balance');
+        $expense = Expense::where('is_expense', 1)->sum('balance');
 
         $expenses = Expense::orderBy('created_at', 'desc')->get();
-        return Inertia::render('Index',[
+        return Inertia::render('Index', [
             'expenses' => $expenses,
-            'total_expense' => $income-$expense,
+            'total_expense' => $income - $expense,
             'income' => $income,
             'expense' => $expense,
         ]);
@@ -41,10 +41,16 @@ class ExpenseController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate([
-            'name' => 'required',
-            'balance' => 'required',
-        ]);
+        $request->validate(
+            [
+                'name' => 'required',
+                'balance' => 'required',
+            ],
+            [
+                'name.required' => 'The text field is required',
+                'balance.required' => 'The Amount field is required'
+            ]
+        );
         Expense::create($request->all());
         return to_route('expenses.index');
     }
@@ -83,7 +89,7 @@ class ExpenseController extends Controller
         return to_route('expenses.store');
     }
 
-    public function getTotalExpense(){
-
+    public function getTotalExpense()
+    {
     }
 }
