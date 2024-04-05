@@ -78,7 +78,9 @@ class ExpenseController extends Controller
      */
     public function destroy(Expense $expense)
     {
-        //
+
+        $expense->delete();
+        return to_route('expenses.store');
     }
 
     public function getTotalExpense(){
